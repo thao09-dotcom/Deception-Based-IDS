@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Portal</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background-color: #f4f6f8;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #1f2937;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            background-color: #374151;
+            color: white;
+            cursor: pointer;
+        }
+
+        .sidebar button:hover {
+            background-color: #2563eb;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .panel {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="sidebar">
+        <h2>Employee Portal</h2>
+
+        <button onclick="showPanel('dashboard')">Dashboard</button>
+        <button onclick="showPanel('documents')">Documents</button>
+        <button onclick="showPanel('payroll')">Payroll</button>
+        <button onclick="showPanel('messages')">Messages</button>
+    </div>
+
+    <div class="main">
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="panel active">
+            <div class="card">
+                <h3>Welcome</h3>
+                <p>System Status: Operational</p>
+                <p>Last Login: Success</p>
+            </div>
+        </div>
+
+        <!-- Documents -->
+        <div id="documents" class="panel">
+            <div class="card">
+                <h3>Shared Files</h3>
+                <ul>
+                    <li onclick="fakeAction('open_salary_file')">salary_data_2026.xlsx</li>
+                    <li onclick="fakeAction('open_clients')">client_list.pdf</li>
+                    <li onclick="fakeAction('open_records')">employee_records.xlsx</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Payroll -->
+        <div id="payroll" class="panel">
+            <div class="card">
+                <h3>Payroll System</h3>
+                <button onclick="fakeAction('view_salaries')">View Salaries</button>
+                <button onclick="fakeAction('download_payroll')">Download Payroll Report</button>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div id="messages" class="panel">
+            <div class="card">
+                <h3>Internal Messages</h3>
+                <p><strong>IT Dept:</strong> System update in progress, some system functions will not be available until update completes</p>
+               
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function showPanel(panelId) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(panelId).classList.add('active');
+
+    logAction("navigate_" + panelId);
+}
+
+function fakeAction(action) {
+    logAction(action);
+    alert("Processing request, this may take a moment...");
+}
+
+function logAction(action) {
+    fetch("/log_action", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ action: action })
+    });
+}
+</script>
+
+</body>
+</html>
