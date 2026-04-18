@@ -5,7 +5,8 @@ Requirements:
   * Python 3.10 +
   * Web browser
   * Python Flask
-    * pip install flask 
+    * pip install flask
+      
 Project Folder Structure:
     Main_project
     |-- app.py
@@ -17,6 +18,7 @@ Project Folder Structure:
         |-- decoy.html
         |--dashboard.html
     |-- run_app.bat
+    
 Installation:
   Clone repository
   Navigate to the project folder
